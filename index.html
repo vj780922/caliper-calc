@@ -27,7 +27,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         th, td {
             border: 1px solid #bdc3c7;
@@ -50,10 +50,12 @@
             text-align: right;
             box-sizing: border-box;
             font-family: "Calibri", sans-serif;
+            background-color: #eef5fc; /* 配合提示，藍色為可填寫儲存格 */
         }
         input[type="number"]:focus {
             border-color: #3498db;
             outline: none;
+            background-color: #fff;
         }
         .error {
             color: #e74c3c;
@@ -64,12 +66,49 @@
             color: #2c3e50;
             font-family: "Calibri", sans-serif;
         }
+        
+        /* 判定結果區塊樣式 */
+        .summary-section {
+            margin-top: 25px;
+            padding: 15px 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .summary-row {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .summary-label {
+            width: 120px;
+            color: #333;
+        }
+        .status-pass {
+            color: #27ae60;
+            font-size: 22px;
+        }
+        .status-fail {
+            color: #c0392b;
+            font-size: 22px;
+        }
+        .status-wait {
+            color: #7f8c8d;
+            font-size: 22px;
+        }
+        .tolerance-badge {
+            background-color: #fef9e7;
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid #f9e79f;
+            font-family: "Calibri", "微軟正黑體", sans-serif;
+        }
+
         .btn-container {
             text-align: right;
             margin-top: 20px;
         }
         button {
-            background-color: #e74c3c;
+            background-color: #7f8c8d;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -79,7 +118,14 @@
             font-family: "微軟正黑體", sans-serif;
         }
         button:hover {
-            background-color: #c0392b;
+            background-color: #616a6b;
+        }
+        .tip-text {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
         }
     </style>
 </head>
@@ -87,6 +133,7 @@
 
 <div class="container">
     <h2>游標卡尺器差值計算器</h2>
+    <div class="tip-text">※請僅填寫藍色儲存格，其餘公式及內容請勿修改。</div>
     
     <table>
         <thead>
@@ -102,74 +149,87 @@
         <tbody>
             <tr>
                 <td rowspan="3" style="background: #fcfcfc; font-weight: bold;">外徑校正</td>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
             <tr>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
             <tr>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
 
             <tr>
                 <td rowspan="3" style="background: #fcfcfc; font-weight: bold;">內徑校正</td>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
             <tr>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
             <tr>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
 
             <tr>
                 <td rowspan="3" style="background: #fcfcfc; font-weight: bold;">深度校正</td>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
             <tr>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
             <tr>
-                <td><input type="number" step="0.001" class="std-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
-                <td><input type="number" step="0.001" class="m-val" oninput="calculateRow(this)"></td>
+                <td><input type="number" step="0.001" class="std-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
+                <td><input type="number" step="0.001" class="m-val" oninput="calculate()"></td>
                 <td class="result error">#DIV/0!</td>
             </tr>
         </tbody>
     </table>
+
+    <hr style="border: 0; border-top: 1px dashed #ccc; margin: 20px 0;">
+
+    <div class="summary-section">
+        <div class="summary-row">
+            <span class="summary-label">校正結果：</span>
+            <span id="judgment-result" class="status-wait">等待數據輸入...</span>
+        </div>
+        <div class="summary-row">
+            <span class="summary-label">允收標準：</span>
+            <span class="tolerance-badge">± 0.02 mm</span>
+        </div>
+    </div>
 
     <div class="btn-container">
         <button onclick="clearAll()">清除所有數據</button>
@@ -177,56 +237,99 @@
 </div>
 
 <script>
-    function calculateRow(element) {
-        // 找到當前操作的那個資料列 (tr)
-        const row = element.closest('tr');
-        
-        // 獲取標準值
-        const stdInput = row.querySelector('.std-val');
-        const stdVal = parseFloat(stdInput.value);
-        
-        // 獲取所有量測值
-        const mInputs = row.querySelectorAll('.m-val');
-        let sum = 0;
-        let count = 0;
-        
-        mInputs.forEach(input => {
-            if (input.value !== "") {
-                sum += parseFloat(input.value);
-                count++;
+    function calculate() {
+        const rows = document.querySelectorAll('tbody tr');
+        let validErrorValues = [];
+        let hasErrorRow = false;
+
+        rows.forEach(row => {
+            const stdInput = row.querySelector('.std-val');
+            const stdVal = parseFloat(stdInput.value);
+            
+            const mInputs = row.querySelectorAll('.m-val');
+            let sum = 0;
+            let count = 0;
+            
+            mInputs.forEach(input => {
+                if (input.value !== "") {
+                    sum += parseFloat(input.value);
+                    count++;
+                }
+            });
+            
+            const resultTd = row.querySelector('.result');
+            
+            // 判斷是否為空行 (使用者什麼都還沒填)
+            if (isNaN(stdVal) && count === 0) {
+                resultTd.textContent = "#DIV/0!";
+                resultTd.classList.add('error');
+                return; 
             }
+
+            // 如果填了部分，但條件不滿足（沒填標準值，或沒填任何量測值）
+            if (isNaN(stdVal) || count === 0) {
+                resultTd.textContent = "#DIV/0!";
+                resultTd.classList.add('error');
+                hasErrorRow = true; // 標記有錯誤或未完成的行
+                return;
+            }
+            
+            // 計算器差值：ROUND(AVERAGE(量測值) - 標準值, 3)
+            const average = sum / count;
+            const errorVal = Math.round((average - stdVal) * 1000) / 1000;
+            
+            resultTd.textContent = errorVal.toFixed(3);
+            resultTd.classList.remove('error');
+            
+            // 將有效計算出來的器差值放入陣列，供後續進行整體判定
+            validErrorValues.push(errorVal);
         });
+
+        // 進行校正判定
+        const judgmentTd = document.getElementById('judgment-result');
         
-        const resultTd = row.querySelector('.result');
-        
-        // 驗證：必須輸入標準值，且量測值至少要有一個（否則會導致分母為0，即 #DIV/0!）
-        if (isNaN(stdVal) || count === 0) {
-            resultTd.textContent = "#DIV/0!";
-            resultTd.classList.add('error');
+        // 如果沒有任何一行有有效器差值，顯示等待狀態
+        if (validErrorValues.length === 0) {
+            judgmentTd.textContent = "等待數據輸入...";
+            judgmentTd.className = "status-wait";
             return;
         }
-        
-        // 計算平均值
-        const average = sum / count;
-        
-        // 計算器差值：ROUND(AVERAGE(量測值) - 標準值, 3)
-        const errorVal = (average - stdVal).toFixed(3);
-        
-        // 顯示結果並移除錯誤樣式
-        resultTd.textContent = errorVal;
-        resultTd.classList.remove('error');
+
+        // 找出最大與最小值 (對應 Excel 的 MAX 與 MIN)
+        const maxError = Math.max(...validErrorValues);
+        const minError = Math.min(...validErrorValues);
+
+        // 四捨五入到三位數（確保與 Excel 的 ROUND(MAX,3) 和 ROUND(MIN,3) 一致）
+        const roundedMax = Math.round(maxError * 1000) / 1000;
+        const roundedMin = Math.round(minError * 1000) / 1000;
+
+        // 判定邏輯：ROUND(MAX) <= 0.02 且 ROUND(MIN) >= -0.02
+        if (roundedMax <= 0.02 && roundedMin >= -0.02) {
+            if (hasErrorRow) {
+                // 如果目前的數據都合格，但表格中還有部分欄位沒填完
+                judgmentTd.textContent = "合格 (尚有項目未填寫)";
+                judgmentTd.className = "status-pass";
+            } else {
+                judgmentTd.textContent = "合格";
+                judgmentTd.className = "status-pass";
+            }
+        } else {
+            judgmentTd.textContent = "不合格";
+            judgmentTd.className = "status-fail";
+        }
     }
 
     function clearAll() {
-        // 清除所有輸入框
         document.querySelectorAll('input[type="number"]').forEach(input => {
             input.value = "";
         });
-        // 重置所有器差值顯示
         document.querySelectorAll('.result').forEach(td => {
             td.textContent = "#DIV/0!";
             td.classList.add('error');
         });
+        const judgmentTd = document.getElementById('judgment-result');
+        judgmentTd.textContent = "等待數據輸入...";
+        judgmentTd.className = "status-wait";
     }
 </script>
 
