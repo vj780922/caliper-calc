@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>游標卡尺器差值計算機 - Weiwei</title>
+    <title>游標卡尺器差值計算器 - Weiwei</title>
     <style>
         /* 字型設定：英文 Calibri, 中文 微軟正黑體 */
         body {
@@ -269,21 +269,21 @@
 
         <span class="section-label">外徑校正</span>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
@@ -294,21 +294,21 @@
 
         <span class="section-label">內徑校正</span>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
@@ -319,21 +319,21 @@
 
         <span class="section-label">深度校正</span>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
         <div class="row-item">
-            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
             <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" placeholder="0.00" oninput="calculate()" onblur="formatToTwoDecimals(this)"></div>
@@ -355,7 +355,7 @@
     </div>
 
     <div class="footer-info">
-        <div>作者：Weiwei | 版本：v1.2.0 | 最後更新日期：2026/06/04</div>
+        <div>作者：Weiwei | 版本：v1.2.1 | 最後更新日期：2026/06/04</div>
         <div>拜訪次數：<span class="visit-badge" id="visitCount">0</span></div>
     </div>
 </div>
@@ -368,12 +368,11 @@
         document.getElementById('visitCount').innerText = count;
     };
 
-    // 新增：當填寫人離開輸入框時，自動格式化成小數點後兩位
+    // 只格式化量測值（移除了標準值對此函數的呼叫）
     function formatToTwoDecimals(input) {
         if (input.value !== "") {
             const num = parseFloat(input.value);
             if (!isNaN(num)) {
-                // 將數值強制轉為小數後兩位字串，再放回輸入格中
                 input.value = num.toFixed(2);
             }
         }
