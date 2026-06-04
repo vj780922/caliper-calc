@@ -16,7 +16,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
 
         .container {
@@ -28,8 +28,15 @@
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            padding: 35px;
+            padding: 25px 20px;
             margin-bottom: 25px;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 576px) {
+            .card {
+                padding: 35px;
+            }
         }
 
         h2 {
@@ -37,7 +44,7 @@
             margin-top: 0;
             color: #1a365d;
             font-size: 24px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .section-label {
@@ -50,7 +57,19 @@
             font-size: 16px;
         }
 
-        .input-row {
+        /* 預設（電腦版）網格佈局 */
+        .header-row {
+            display: grid;
+            grid-template-columns: 1.2fr repeat(3, 1fr) 1.2fr;
+            gap: 10px;
+            font-size: 13px;
+            color: #718096;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .row-item {
             display: grid;
             grid-template-columns: 1.2fr repeat(3, 1fr) 1.2fr;
             gap: 10px;
@@ -58,44 +77,44 @@
             align-items: center;
         }
 
-        .header-row {
-            font-size: 12px;
-            color: #718096;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 8px;
+        /* 手機版專用標籤，電腦版隱藏 */
+        .mobile-label {
+            display: none;
         }
 
         input[type="number"] {
             width: 100%;
-            padding: 10px;
+            padding: 11px 8px;
             border: 1.5px solid #e2e8f0;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px; /* 防止 iOS 點擊時畫面自動縮放 */
             box-sizing: border-box;
             outline: none;
             text-align: right;
             font-family: "Calibri", "Microsoft JhengHei";
-            background-color: #eef5fc; /* 淡藍色輸入格 */
+            background-color: #eef5fc; 
+            transition: all 0.2s;
         }
 
         input[type="number"]:focus {
             border-color: #3182ce;
             background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
         }
 
         .calc-res {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             color: #2d3748;
             text-align: center;
             font-family: "Calibri", sans-serif;
+            padding: 5px 0;
         }
 
         .waiting {
             color: #a0aec0;
             font-style: italic;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: normal;
         }
 
@@ -167,21 +186,66 @@
 
         .clear-btn {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background-color: #edf2f7;
             color: #4a5568;
             border: none;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             transition: background 0.2s;
-            margin-top: 15px;
+            margin-top: 20px;
             font-family: "Microsoft JhengHei";
         }
 
         .clear-btn:hover {
             background-color: #e2e8f0;
+        }
+
+        /* ==========================================================================
+           關鍵修改：RWD 手機板樣式微調 (螢幕寬度小於 550px 時觸發)
+           ========================================================================== */
+        @media (max-width: 550px) {
+            .header-row {
+                display: none; /* 手機版直接隱藏頂部橫向表頭 */
+            }
+
+            .row-item {
+                display: flex;
+                flex-direction: column; /* 轉為垂直直列排版 */
+                background: #f8fafc;
+                padding: 14px;
+                border-radius: 10px;
+                margin-bottom: 16px;
+                border: 1px solid #edf2f7;
+            }
+
+            .input-group-mobile {
+                display: grid;
+                grid-template-columns: 80px 1fr; /* 左側小標題固定，右側輸入框拉滿 */
+                align-items: center;
+                width: 100%;
+                margin-bottom: 8px;
+            }
+
+            .mobile-label {
+                display: block; /* 顯示手機專用小字標籤 */
+                font-size: 13px;
+                color: #4a5568;
+                font-weight: bold;
+                text-align: left;
+                padding-left: 4px;
+            }
+
+            .calc-res {
+                width: 100%;
+                text-align: right;
+                padding: 8px 4px 0 4px;
+                box-sizing: border-box;
+                border-top: 1px dashed #e2e8f0;
+                margin-top: 4px;
+            }
         }
     </style>
 </head>
@@ -191,7 +255,7 @@
     <div class="card">
         <h2>游標卡尺器差值計算器</h2>
 
-        <div class="input-row header-row">
+        <div class="header-row">
             <div>標準值</div>
             <div>量測值 1</div>
             <div>量測值 2</div>
@@ -200,75 +264,75 @@
         </div>
 
         <span class="section-label">外徑校正</span>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
 
         <div class="divider"></div>
 
         <span class="section-label">內徑校正</span>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
 
         <div class="divider"></div>
 
         <span class="section-label">深度校正</span>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
-        <div class="input-row row-item">
-            <input type="number" step="0.001" class="std-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m1-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m2-val" oninput="calculate()">
-            <input type="number" step="0.001" class="m3-val" oninput="calculate()">
+        <div class="row-item">
+            <div class="input-group-mobile"><span class="mobile-label">標準值</span><input type="number" step="0.001" class="std-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 1</span><input type="number" step="0.001" class="m1-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 2</span><input type="number" step="0.001" class="m2-val" oninput="calculate()"></div>
+            <div class="input-group-mobile"><span class="mobile-label">量測值 3</span><input type="number" step="0.001" class="m3-val" oninput="calculate()"></div>
             <div class="calc-res waiting">等待數據輸入...</div>
         </div>
 
@@ -287,7 +351,7 @@
     </div>
 
     <div class="footer-info">
-        <div>作者：Weiwei | 版本：v1.0.0 | 最後更新日期：2026/06/04</div>
+        <div>作者：Weiwei | 版本：v1.1.0 | 最後更新日期：2026/06/04</div>
         <div>拜訪次數：<span class="visit-badge" id="visitCount">0</span></div>
     </div>
 </div>
@@ -327,7 +391,12 @@
             const average = (m1 + m2 + m3) / 3;
             const errorVal = Math.round((average - stdVal) * 1000) / 1000;
             
-            resDiv.textContent = errorVal.toFixed(3);
+            // 手機版排版下，加上前綴說明更易讀
+            if (window.innerWidth <= 550) {
+                resDiv.innerHTML = `<span style="font-size:13px; color:#718096; font-weight:normal; float:left;">器差值：</span>${errorVal.toFixed(3)}`;
+            } else {
+                resDiv.textContent = errorVal.toFixed(3);
+            }
             resDiv.className = "calc-res";
             
             validErrorValues.push(errorVal);
@@ -366,6 +435,9 @@
             judgmentEl.style.fontSize = "22px";
         }
     }
+
+    // 監聽視窗大小調整，即時修正計算結果的顯示文字
+    window.addEventListener('resize', calculate);
 
     function clearAll() {
         document.querySelectorAll('input[type="number"]').forEach(input => {
